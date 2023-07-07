@@ -1,5 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Homepage</h1>
+<h1>Temperature Readings</h1>
+<ul>
+    {% for value in temperature_list %}
+    <li>{{ value.time }} {{ value.temperature }}</li>
+    {% endfor %}
+</ul>
 {% endblock content %}
