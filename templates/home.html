@@ -4,7 +4,7 @@
 <h1>Temperature Readings</h1>
 <ul>
     {% for value in temperature_list %}
-    <li>{{ value.time }} {{ value.temperature }}</li>
+    <li>{{ value.timestamp }} {{ value.value}}</li>
     {% endfor %}
 </ul>
 {% endblock content %}
