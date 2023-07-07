@@ -9,13 +9,13 @@ class TemperatureType(DjangoObjectType):
         fields = ("id", "timestamp", "value")
 
 class Query(graphene.ObjectType):
-    current_temperature = graphene.List(TemperatureType)
+    current_temperature = graphene.Field(TemperatureType)
     temperature_statistics = graphene.List(TemperatureType)
 
-    def resolve_current_temperature(root, info, **kwargs):
-        return Temperature.objects.all()
+    def resolve_current_temperature(root, info):
+        return Temperature.objects.last()
 
     def resolve_temperature_statistics(root, info, **kwargs):
-        return Temperature.objects.max(value=value)
+        return Temperature.objects.all()
 
 schema = graphene.Schema(query=Query)
