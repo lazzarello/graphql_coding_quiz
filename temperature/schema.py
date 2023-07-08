@@ -24,8 +24,33 @@ class Query(graphene.ObjectType):
 
     def resolve_temperature_statistics(self, info, before=None, after=None):
         range_type = AggregateType()
-        range_type.max = Temperature.objects.all().aggregate(Max('value'))['value__max']
-        range_type.min = Temperature.objects.all().aggregate(Min('value'))['value__min']
-        return range_type
+        
+        if before and after:
+            range_type.max = Temperature.objects.filter(
+                timestamp__gte=after,
+                timestamp__lte=before).aggregate(Max('value'))['value__max']
+            range_type.min = Temperature.objects.filter(
+                timestamp__gte=after,
+                timestamp__lte=before).aggregate(Min('value'))['value__min']
+            return range_type
+        elif before:
+            range_type.max = Temperature.objects.filter(
+                timestamp__lte=before).aggregate(Max('value'))['value__max']
+            range_type.min = Temperature.objects.filter(
+                timestamp__lte=before).aggregate(Min('value'))['value__min']
+            return range_type
+        elif after:
+            range_type.max = Temperature.objects.filter(
+                timestamp__gte=after).aggregate(Max('value'))['value__max']
+            range_type.min = Temperature.objects.filter(
+                timestamp__gte=after,).aggregate(Min('value'))['value__min']
+            return range_type
+        else:
+            range_type.max = Temperature.objects.all().aggregate(
+                Max('value'))['value__max']
+            range_type.min = Temperature.objects.all().aggregate(
+                Min('value'))['value__min']
+            return range_type
+
 
 schema = graphene.Schema(query=Query)
