@@ -6,4 +6,4 @@ class Temperature(models.Model):
     value = models.FloatField()
 
     def __str__(self) -> time:
-        return str(self.time)
+        return str(self.timestamp)
