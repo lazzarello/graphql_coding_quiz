@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "daphne",
     "django.contrib.staticfiles",
     "tempquiz",
     "graphene_django",
@@ -128,3 +129,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 GRAPHENE = {
     "SCHEMA": "temperature.schema.schema"
 }
+
+ASGI_APPLICATION = "temperature.asgi.application"
