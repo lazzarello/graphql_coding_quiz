@@ -1,8 +1,29 @@
+import channels_graphql_ws
 import graphene
 from graphene_django import DjangoObjectType
 from django.db.models import Max, Min
 
 from tempquiz.models import Temperature
+
+class TemperatureSub(channels_graphql_ws.Subscription):
+    """Get Temperatures"""
+    notification_queue_limit = 1000
+
+    event = graphene.String()
+
+    class Arguments:
+        timestamp = graphene.String()
+        value = graphene.String()
+
+    @staticmethod
+    def publish(payload, info, timestamp, value):
+        """Send a subscribe query to the temp endpoint"""
+        return TemperatureSub(event="wtf")
+
+    @staticmethod
+    def subscribe(root, info, timestamp, value):
+        """Called when some mysterious user subscribes..."""
+        pass
 
 class TemperatureType(DjangoObjectType):
     class Meta:
