@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "tempquiz",
     "graphene_django",
-    "django_filters",
 ]
 
 MIDDLEWARE = [
