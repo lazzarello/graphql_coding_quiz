@@ -5,34 +5,14 @@ from django.db.models import Max, Min
 
 from tempquiz.models import Temperature
 
-class TemperatureSub(channels_graphql_ws.Subscription):
-    """Get Temperatures"""
-    notification_queue_limit = 1000
-
-    event = graphene.String()
-
-    class Arguments:
-        timestamp = graphene.String()
-        value = graphene.String()
-
-    @staticmethod
-    def publish(payload, info, timestamp, value):
-        """Send a subscribe query to the temp endpoint"""
-        return TemperatureSub(event="wtf")
-
-    @staticmethod
-    def subscribe(root, info, timestamp, value):
-        """Called when some mysterious user subscribes..."""
-        pass
-
 class TemperatureType(DjangoObjectType):
     class Meta:
         model = Temperature
         fields = ("id", "timestamp", "value")
 
 class AggregateType(graphene.ObjectType):
-    min = graphene.String()
-    max = graphene.String()
+    min = graphene.Float()
+    max = graphene.Float()
 
 class Query(graphene.ObjectType):
     current_temperature = graphene.Field(TemperatureType)
