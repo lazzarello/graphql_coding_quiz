@@ -1,4 +1,4 @@
-import channels_graphql_ws
+# import channels_graphql_ws
 import graphene
 from graphene_django import DjangoObjectType
 from django.db.models import Max, Min

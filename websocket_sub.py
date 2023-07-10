@@ -4,6 +4,7 @@ import asyncio
 import json
 from time import sleep
 
+# this will queue NUM_RETRIES * message rate before exiting
 NUM_RETRIES = 100
 
 def process_msg(data) -> None:

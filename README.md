@@ -14,6 +14,9 @@ docker build -t loftorbitalconsumer:latest .
 TODO: some docker-compose thing for the temperature source container
 and networking to share a localhost
 
+The local SQLite database in the container should be filling up quickly!
+Hurry up, make some queries.
+
 ## Make queries
 
 The query interface is available and responds to the two queries in the instructions.
