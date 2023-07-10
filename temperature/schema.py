@@ -73,5 +73,19 @@ class Query(graphene.ObjectType):
                 Min('value'))['value__min']
             return range_type
 
+class CreateTemperature(graphene.Mutation):
+    class Arguments:
+        value = graphene.Float()
+    ok = graphene.Boolean()
+    temperature = graphene.Field(TemperatureType)
 
-schema = graphene.Schema(query=Query)
+    def mutate(root, info, value):
+        temperature = Temperature(value=value)
+        temperature.save()
+        ok = True
+        return CreateTemperature(temperature=temperature, ok=ok)
+
+class Mutation(graphene.ObjectType):
+    create_temperature = CreateTemperature.Field()
+
+schema = graphene.Schema(query=Query, mutation=Mutation)

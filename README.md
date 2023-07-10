@@ -41,3 +41,4 @@ python manage.py test
 * [Hasura seems to be good](https://hasura.io/blog/turn-your-python-rest-api-to-graphql-using-hasura-actions/)
 * [Can't figure out how to make the Django query return? Thanks Internet!](https://stackoverflow.com/questions/70920770/how-to-make-graphql-query-that-can-find-latest-or-min-or-max)
 * From the time of this writing to today, the django-channels-graphql-ws library is broken! Yea. That made the subscription part go from the easiest part to the most confusing. +2 hours. Thanks coding quiz! A nice person from [three weeks ago](https://github.com/datadvance/DjangoChannelsGraphqlWs/issues/103) helped me out!
+* [Django channels](https://realpython.com/getting-started-with-django-channels/) tutorial on how to use websockets. Still not sure how to subscribe to the feed and save points in the model.
