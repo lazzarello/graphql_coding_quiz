@@ -8,7 +8,6 @@ def process_msg(data):
     v = data.get('payload').get('data').get('temperature')
     query_string = "mutation { createTemperature(value: %s) { ok }}" % v
     payload = { "query": query_string }
-    # an HTTP POST to the pub_url with the payload as the body
     print(payload)
     requests.post(pub_url, json=payload)
 

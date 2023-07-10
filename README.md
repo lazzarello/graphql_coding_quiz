@@ -7,14 +7,16 @@ I haven't used Django in many years. My current employer built their own async g
 ## Run with docker
 
 ```
-docker build -t loftorbitaltest:latest .
-docker run -p 8000:8000 -it loftorbitaltest:latest
+docker build -t loftorbitalapp:latest .
+docker build -t loftorbitalconsumer:latest .
 ```
 
 TODO: some docker-compose thing for the temperature source container
 and networking to share a localhost
 
-## Look at website
+## Make queries
+
+The query interface is available and responds to the two queries in the instructions.
 
 http://127.0.0.1:8000/graphql
 
@@ -31,7 +33,8 @@ python manage.py runserver
 
 ```
 source .venv/bin/activate
-python manage.py test
+python -m pip install -r requirements.txt
+pytest
 ```
 
 ## Swap out database
