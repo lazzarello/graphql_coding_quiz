@@ -4,10 +4,12 @@ services:
     image: app:latest
     ports:
       - 8000:8000
+    restart: on-failure
   temperature:
     image: us.gcr.io/loft-orbital-public/hiring/challenges/ground-software/back-end/satellite-temperature
     ports:
       - 1000:4000
+    restart: on-failure
   broker:
     image: broker:latest
     network_mode: "host"
