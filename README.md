@@ -4,6 +4,8 @@
 
 I haven't used Django in many years. I'm more familliar with a codebase from an employer built with the aiohttp library. Most recently, I use a MVC framework in Julia called Genie. I like it a lot. For this quiz, I used a [Hello World example](https://djangoforbeginners.com/hello-world/) to get all the syntax and conventions right for Django.
 
+I have pyenv set up on my personal dev machine. I used 3.11.3 locally, which is the same version in the Dockerfile.
+
 ## Run with docker
 
 ```
