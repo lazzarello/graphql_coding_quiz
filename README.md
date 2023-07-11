@@ -7,12 +7,10 @@ I haven't used Django in many years. My current employer built their own async g
 ## Run with docker
 
 ```
-docker build -t loftorbitalapp:latest .
-docker build -t loftorbitalconsumer:latest .
+docker build -t app:latest -f Dockerfile .
+docker build -t broker:latest -f Dockerfile_broker .
+docker-compose up
 ```
-
-TODO: some docker-compose thing for the temperature source container
-and networking to share a localhost
 
 The local SQLite database in the container should be filling up quickly!
 Hurry up, make some queries.
@@ -32,6 +30,8 @@ python -m pip install -r requirements.txt
 python manage.py runserver
 ```
 
+the broker is just a normal python program `python websocket_sub.py`
+
 ## Run tests
 
 ```
@@ -46,12 +46,13 @@ Django abstracts a bunch of databases. To move to PostgreSQL in place would only
 
 I love ORMs for relational data but this is time series data. A special purpose database like TimescaleDB, which can run within PostgreSQL would be better suited for scaling out to tens of thousands of measurements.
 
-Another concern is queue scalability. Because this is an exercise, the easiest way to get an in-memory queue was to just lean on the websocket library. That gives us a small buffer in the event the app server is down but the data consumer service is running. A better way would be to introduce a message queue, I'm fond of ZeroMQ (but I've most recently deployed RabbitMQ) and rather than saving the messages to the program's memory, it would publish a message and zmq would subscribe to that source.
+Another concern is queue scalability. Because this is an exercise, the easiest way to get an in-memory queue was to lean on the websocket library. That gives us a small buffer in the event the app server is down but the data consumer service is running. A better way would be to introduce a message queue, I'm fond of ZeroMQ (but I've most recently deployed RabbitMQ) and rather than saving the messages to the program's memory, it would publish a message and zmq would subscribe to that source.
 
-To further simplify things, the temperature readings would publish directly to the queue and the subscription microservice would pull off that queue.  The function that calls the GraphQL mutation would then subscribe to that queue topic and use the same write method to persist data. So yeah, pub/sub and topic based queues would be good for future improvements.
-## Opinions
+To further simplify things, Pub/Sub and topic based queues would be good for future improvements. The temperature readings would publish directly to the queue and the subscription microservice would pull off that queue.  The function that calls the GraphQL mutation would then subscribe to that queue topic and use the same write method to persist data. 
 
-* [Hasura seems to be good](https://hasura.io/blog/turn-your-python-rest-api-to-graphql-using-hasura-actions/)
-* [Can't figure out how to make the Django query return? Thanks Internet!](https://stackoverflow.com/questions/70920770/how-to-make-graphql-query-that-can-find-latest-or-min-or-max)
-* From the time of this writing to today, the django-channels-graphql-ws library is broken! Yea. That made the subscription part go from the easiest part to the most confusing. +2 hours. Thanks coding quiz! A nice person from [three weeks ago](https://github.com/datadvance/DjangoChannelsGraphqlWs/issues/103) helped me out!
+## Opinions on This Journey
+
+* [Hasura seems to be good for a generic REST to GraphQL system](https://hasura.io/blog/turn-your-python-rest-api-to-graphql-using-hasura-actions/)
+* [Can't figure out how to make the min/max thing work? Thanks Internet!](https://stackoverflow.com/questions/70920770/how-to-make-graphql-query-that-can-find-latest-or-min-or-max)
+* From the time of this writing to today, the django-channels-graphql-ws library is broken! Yea. That made the subscription part go from the easiest part to the most confusing. +2 hours. A nice person from [three weeks ago](https://github.com/datadvance/DjangoChannelsGraphqlWs/issues/103) helped me out!
 * [Django channels](https://realpython.com/getting-started-with-django-channels/) tutorial on how to use websockets. Still not sure how to subscribe to the feed and save points in the model.
