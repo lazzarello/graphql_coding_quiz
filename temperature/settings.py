@@ -126,8 +126,6 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-GRAPHENE = {
-    "SCHEMA": "temperature.schema.schema"
-}
+GRAPHENE = {"SCHEMA": "temperature.schema.schema"}
 
 ASGI_APPLICATION = "temperature.asgi.application"

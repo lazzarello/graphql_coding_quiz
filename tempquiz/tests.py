@@ -4,6 +4,7 @@ from datetime import datetime
 
 from .models import Temperature
 
+
 class TemperatureTests(TestCase):
     @classmethod
     def setUpTestData(cls):
