@@ -30,7 +30,9 @@ python -m pip install -r requirements.txt
 python manage.py runserver
 ```
 
-the broker is just a normal python program `python websocket_sub.py`
+The Django admin interface is enabled after you set the superuser password via manage.py. There's also a mutation in the GraphQL schema that adds points.
+
+The broker is just a normal python program `python websocket_sub.py`
 
 ## Run tests
 
