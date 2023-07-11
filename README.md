@@ -40,8 +40,15 @@ python -m pip install -r requirements.txt
 pytest
 ```
 
-## Swap out database
+## Swap out database and long term project discussion
 
+Django abstracts a bunch of databases. To move to PostgreSQL in place would only require changing the adapter and running migrations on the new DB. But...this exercise is peculiar because it's leaning so heavily on the Django ORM.
+
+I love ORMs for relational data but this is time series data. A special purpose database like TimescaleDB, which can run within PostgreSQL would be better suited for scaling out to tens of thousands of measurements.
+
+Another concern is queue scalability. Because this is an exercise, the easiest way to get an in-memory queue was to just lean on the websocket library. That gives us a small buffer in the event the app server is down but the data consumer service is running. A better way would be to introduce a message queue, I'm fond of ZeroMQ (but I've most recently deployed RabbitMQ) and rather than saving the messages to the program's memory, it would publish a message and zmq would subscribe to that source.
+
+To further simplify things, the temperature readings would publish directly to the queue and the subscription microservice would pull off that queue.  The function that calls the GraphQL mutation would then subscribe to that queue topic and use the same write method to persist data. So yeah, pub/sub and topic based queues would be good for future improvements.
 ## Opinions
 
 * [Hasura seems to be good](https://hasura.io/blog/turn-your-python-rest-api-to-graphql-using-hasura-actions/)

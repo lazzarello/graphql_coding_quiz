@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  app:
+    image: app:latest
+    ports:
+      - 8000:8000
+  temperature:
+    image: us.gcr.io/loft-orbital-public/hiring/challenges/ground-software/back-end/satellite-temperature
+    ports:
+      - 1000:4000
+  broker:
+    image: broker:latest
+    network_mode: "host"
+    restart: on-failure

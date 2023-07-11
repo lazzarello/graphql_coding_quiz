@@ -27,7 +27,8 @@ def process_msg(data) -> None:
             print("Connection error, retrying...")
             pass
 
-async def subscribe_to_data() -> None:
+# don't return type so mypy doesn't complain
+async def subscribe_to_data():
     sub_url: str = "ws://localhost:1000/graphql"
     start: dict = {
         "type": "start",
