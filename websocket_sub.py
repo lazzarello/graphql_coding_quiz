@@ -7,6 +7,7 @@ from time import sleep
 # this will queue NUM_RETRIES * message rate before exiting
 NUM_RETRIES = 100
 
+
 def process_msg(data) -> None:
     pub_url: str = "http://localhost:8000/graphql"
     v: str = data.get("payload").get("data").get("temperature")
@@ -26,6 +27,7 @@ def process_msg(data) -> None:
             sleep(1)
             print("Connection error, retrying...")
             pass
+
 
 # don't return type so mypy doesn't complain
 async def subscribe_to_data():
