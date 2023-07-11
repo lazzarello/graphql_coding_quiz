@@ -64,7 +64,7 @@ I'd like to scale this out with Kubernetes, where I would have a number of deplo
 * A front end load balancer for all the javascript I didn't demonstrate for this quiz
 * An Ingress for the web application
 
-Most of this would be built via CI pipelines (I'm most familliar with Gitlab but I use Github for public projects) so thinks like containers, manifests and rolling updates could be triggered via CI. Much of my niche expertise in scaling out ground software in aerospace leans on Kubernetes and AWS external service integrations. I have Terraform to manage all that.
+Most of this would be triggered via CI pipelines (I'm most familliar with Gitlab but I use Github for public projects) so things like images, manifests and rolling updates could be built via CI jobs. Much of my niche expertise in scaling out ground software in aerospace leans on Kubernetes and AWS external service integrations. I have Terraform to manage all that.
 
 ## Opinions on This Journey
 
