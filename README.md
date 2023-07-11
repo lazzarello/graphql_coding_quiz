@@ -52,15 +52,19 @@ To further simplify things, Pub/Sub and topic based queues would be good for fut
 
 ## Production deployment
 
-I set up the Django web app to use guinicorn and the broker uses asyncio which should be good for a while...
+I set up the Django web app to use guinicorn and the broker uses asyncio which should be good for a while until the message queue interface is built.
+Putting the broker into an app server container might also make sense to handle more concurrency.
 
-I'd like to scale this out with Kubernetes, where I would have a number of deployments using the internal DNS to communicate as services rather than the docker-compose host network like in this example.
+I'd like to scale this out with Kubernetes, where I would have a number of deployments using the internal DNS to communicate as services rather than the docker-compose host network like in this example. The services would include
 
 * Django webapp backed by a relational database
 * A message queue
 * The measurement reading
 * The measurement consumer
 * A front end load balancer for all the javascript I didn't demonstrate for this quiz
+* An Ingress for the web application
+
+Most of this would be built via CI pipelines (I'm most familliar with Gitlab but I use Github for public projects) so thinks like containers, manifests and rolling updates could be triggered via CI. Much of my niche expertise in scaling out ground software in aerospace leans on Kubernetes and AWS external service integrations. I have Terraform to manage all that.
 
 ## Opinions on This Journey
 
