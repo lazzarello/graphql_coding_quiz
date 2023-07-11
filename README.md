@@ -66,6 +66,8 @@ I'd like to scale this out with Kubernetes, where I would have a number of deplo
 
 Most of this would be triggered via CI pipelines (I'm most familliar with Gitlab but I use Github for public projects) so things like images, manifests and rolling updates could be built via CI jobs. Much of my niche expertise in scaling out ground software in aerospace leans on Kubernetes and AWS external service integrations. I have Terraform to manage all that.
 
+I just noticed the development docker images are pretty big. I'd optimize them for size for production deployments. I think I could at least half the size by using the Alpine Linux python image.
+
 ## Opinions on This Journey
 
 * [Hasura seems to be good for a generic REST to GraphQL system](https://hasura.io/blog/turn-your-python-rest-api-to-graphql-using-hasura-actions/)
